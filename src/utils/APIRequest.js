@@ -1,6 +1,6 @@
 // import "regenerator-runtime/runtime";
 import axios from "axios";
-let cors_api_url = 'http://localhost:3001/';
+let cors_api_url = 'https://chemical-tourmaline-rabbit.glitch.me/';
 
 async function APIRequest(options, timeout = 0) {
   let request = null;
