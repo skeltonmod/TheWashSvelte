@@ -3,7 +3,7 @@ name: Glitch Sync
 on:
   push:
     branches:
-      - master
+      - main
 
 jobs:
   sync:
