@@ -13,29 +13,34 @@
       .then((r) => {
         episodes = r;
       });
-
-
   });
 
   const grabEpisode = async (link) => {
     await crawlerAPI.fetchEpisode(link).then((r) => {
-        const player = document.getElementById('player')
-        player.src = r.video_link;
-    })
-  }
+      const player = document.getElementById("player");
+      player.src = r.video_link;
+    });
+  };
 </script>
 
 <div class="inner">
-  <video class="center" id="player" style="padding: 1em 1em 1em 1em;" controls autoplay/>
-    <!-- <iframe id="player" height="100%" width="100%"></iframe> -->
+  <video
+    class="center"
+    id="player"
+    style="padding: 1em 1em 1em 1em;"
+    controls
+    autoplay
+  />
+  <!-- <iframe id="player" height="100%" width="100%"></iframe> -->
   <center>
     <div id="list">
       {#each episodes as episode}
-        <a
-          href={`#${$location}`}
-          on:click={() => {grabEpisode(episode.link)}}
+        <span
+          on:click={() => {
+            grabEpisode(episode.link);
+          }}
           style="min-width: 59px; margin-top: 2em; margin-right 1em; margin-left: 1em"
-          >EP {episode.episode}</a
+          >EP {episode.episode}</span
         >
       {/each}
     </div>
