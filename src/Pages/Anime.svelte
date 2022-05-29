@@ -3,9 +3,12 @@
   import { onMount } from "svelte";
   import { location } from "svelte-spa-router";
   import crawlerAPI from "../api/api";
+  import paginate from "../utils/Paginate";
 
   let episodes = [];
   let videoEl = null;
+  let pages = [];
+  let currentPage = 0;
   onMount(async () => {
     await crawlerAPI
       .fetchEpisodeEmbedded(String($location).split("/")[2])
@@ -16,6 +19,9 @@
             link: item.link.split("/")[4],
           };
         });
+        pages = paginate(episodes, 20);
+        
+        episodes = pages[currentPage];
       });
   });
 
@@ -25,6 +31,12 @@
       // Change iframe src
       document.getElementById("player").src = response[0].link;
     });
+  };
+
+  // Create a handler for page change
+  const handlePageChange = (page) => {
+    currentPage = page;
+    episodes = pages[page];
   };
 </script>
 
@@ -51,7 +63,22 @@
         >
       {/each}
     </div>
-  </center>
+    <!-- Paginate and display them in one line only -->
+    <div class="pagination" style="justify-content: left">
+      {#each pages as page, index}
+        <!-- svelte-ignore a11y-missing-attribute -->
+        <a
+          class="page-item"
+          on:click={() => {
+            // grabEpisode(page.link);
+            handlePageChange(index);
+          }}
+        >
+          {index + 1}
+        </a>
+      {/each}
+    </div></center
+  >
 </div>
 
 <style>
@@ -70,22 +97,5 @@
   .responsive-iframe {
     width: 100%;
     height: 20em;
-  }
-
-  html:-moz-full-screen {
-    background: red;
-  }
-
-  html:-webkit-full-screen {
-    background: red;
-  }
-
-  html:-ms-fullscreen {
-    background: red;
-    width: 100%; /* needed to center contents in IE */
-  }
-
-  html:fullscreen {
-    background: red;
   }
 </style>
