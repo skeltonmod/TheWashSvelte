@@ -3,7 +3,7 @@ import APIRequest from "../utils/APIRequest";
 const crawlerAPI = {
     fetchAnime: async (data) => {
         return await APIRequest({
-            url: "api/anime/search",
+            url: "api/v2/search-anime",
             data,
             method: "POST",
         }).then((r) => {
@@ -15,6 +15,25 @@ const crawlerAPI = {
         return await APIRequest({
             url: `api/anime/grab${episode}`,
             method: "GET",
+        }).then((r) => {
+            return r.data;
+        });
+    },
+
+    fetchEpisodeEmbedded: async(link) => {
+        return await APIRequest({
+            url: `api/v2/load-anime/${link}`,
+            method: "GET",
+        }).then((r) => {
+            return r.data;
+        });
+    },
+
+    loadEmbedded : async(data) => {
+        return await APIRequest({
+            url: `api/v2/play-anime`,
+            data,
+            method: "POST",
         }).then((r) => {
             return r.data;
         });
