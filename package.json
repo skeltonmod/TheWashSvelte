@@ -19,7 +19,11 @@
     "vite": "^2.9.7"
   },
   "dependencies": {
+    "@vime/core": "^5.3.1",
+    "@vime/svelte": "^5.3.1",
     "axios": "^0.27.2",
+    "hls.js": "^1.1.5",
+    "openplayerjs": "^2.11.0",
     "sirv": "^2.0.2",
     "svelte-spa-router": "^3.2.0",
     "terminal.css": "^0.7.2"

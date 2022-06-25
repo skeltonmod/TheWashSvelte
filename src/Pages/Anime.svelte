@@ -4,32 +4,45 @@
   import { location } from "svelte-spa-router";
   import crawlerAPI from "../api/api";
   import paginate from "../utils/Paginate";
-
+  // import OpenPlayerJS from "openplayerjs";
+  // import "openplayerjs/dist/openplayer.css";
+  import { Player, Hls, DefaultUi, Ui } from "@vime/svelte";
   let episodes = [];
-  let videoEl = null;
   let pages = [];
   let currentPage = 0;
+  let player = Player;
+  let videoSource = "";
+
   onMount(async () => {
     await crawlerAPI
       .fetchEpisodeEmbedded(String($location).split("/")[2])
       .then((r) => {
         episodes = r.map((item) => {
           return {
-            episode: item.label,
-            link: item.link.split("/")[4],
+            episode: item.episode,
+            link: item.link,
+            selected: false,
           };
         });
         pages = paginate(episodes, 20);
-        
+
         episodes = pages[currentPage];
+      });
+    console.log("Episode 0", episodes[0]);
+    const firstEpisode = await crawlerAPI
+      .loadEmbedded({ link: episodes[0].link })
+      .then((response) => {
+        // Change iframe src
+        videoSource = response.file;
       });
   });
 
   const grabEpisode = async (link) => {
-    console.log(link);
+    console.log(player);
     await crawlerAPI.loadEmbedded({ link: link }).then((response) => {
       // Change iframe src
-      document.getElementById("player").src = response[0].link;
+      console.log(response);
+      videoSource = response.file;
     });
   };
 
@@ -41,19 +54,20 @@
 </script>
 
 <div class="inner">
-  <iframe
-    class="responsive-iframe"
-    id="player"
-    title="player"
-    allowfullscreen="allowfullscreen"
-    webkitallowfullscreen="true"
-    mozallowfullscreen="true"
-    scrolling="no"
-    height="100%"
-    width="100%"
-  />
+  <Player controls>
+    <Hls version="latest" crossOrigin={true}>
+      <source data-src={videoSource} type="application/x-mpegURL" />
+    </Hls>
+    <!-- ... -->
+    <Ui />
+  </Player>
+
   <center>
-    <div id="list" class="grid-container">
+    <div
+      id="list"
+      class="grid-container"
+      style="cursor: pointer; backgroud-color: black"
+    >
       {#each episodes as episode}
         <span
           class="grid-item"

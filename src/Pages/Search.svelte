@@ -9,7 +9,7 @@
         return {
           title: item.title,
           // Only grab the /anime/ part of the url
-          link: item.link.split("/")[4],
+          link: item.link
         };
       });
       
