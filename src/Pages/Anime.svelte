@@ -4,21 +4,32 @@
   import { location } from "svelte-spa-router";
   import crawlerAPI from "../api/api";
   import paginate from "../utils/Paginate";
-  // import OpenPlayerJS from "openplayerjs";
-  // import "openplayerjs/dist/openplayer.css";
-  import { Player, Hls, DefaultUi, Ui } from "@vime/svelte";
+  import wendale from "../assets/wendale.jpg";
   let episodes = [];
   let pages = [];
   let currentPage = 0;
-  let player = Player;
   let videoSource = "";
+  let videoPlayer = null;
+  // import videojs css
+  import "video.js/dist/video-js.css";
+  // import videojs
+  import videojs from "video.js";
+  const options = {
+    autoplay: true,
+    controls: true,
+    type: "application/x-mpegURL",
+    fluid: true,
+    poster: wendale,
+  };
+  let vjs = null;
 
   onMount(async () => {
     await crawlerAPI
       .fetchEpisodeEmbedded(String($location).split("/")[2])
       .then((r) => {
-        episodes = r.map((item) => {
+        episodes = r.map((item, index) => {
           return {
+            id: index,
             episode: item.episode,
             link: item.link,
             selected: false,
@@ -33,16 +44,42 @@
       .loadEmbedded({ link: episodes[0].link })
       .then((response) => {
         // Change iframe src
-        videoSource = response.file;
+        return response;
       });
+
+    // Init videojs
+    if (videoPlayer) {
+      vjs = videojs(videoPlayer, options, () => {
+        console.log("Player ready!");
+        episodes[0].selected = true;
+      });
+      vjs.src({
+        src: firstEpisode.file,
+        type:
+          String(firstEpisode.file).split(".").pop() === "mp4"
+            ? "video/mp4"
+            : "application/x-mpegURL",
+      });
+    }
   });
 
-  const grabEpisode = async (link) => {
-    console.log(player);
+  const grabEpisode = async (link, index) => {
+    // change the selected property
+    episodes[index].selected = true;
+
+    console.log(episodes);
     await crawlerAPI.loadEmbedded({ link: link }).then((response) => {
       // Change iframe src
       console.log(response);
-      videoSource = response.file;
+      // Check the end of the string if it has an mp4 extension
+
+      vjs.src({
+        src: response.file,
+        type:
+          String(response.file).split(".").pop() === "mp4"
+            ? "video/mp4"
+            : "application/x-mpegURL",
+      });
     });
   };
 
@@ -54,13 +91,14 @@
 </script>
 
 <div class="inner">
-  <Player controls>
-    <Hls version="latest" crossOrigin={true}>
-      <source data-src={videoSource} type="application/x-mpegURL" />
-    </Hls>
-    <!-- ... -->
-    <Ui />
-  </Player>
+  <video-js
+    bind:this={videoPlayer}
+    width="600"
+    height="300"
+    class="vjs-default-skin"
+    controls
+  >
+</video-js>
 
   <center>
     <div
@@ -68,11 +106,14 @@
       class="grid-container"
       style="cursor: pointer; backgroud-color: black"
     >
-      {#each episodes as episode}
+      {#each episodes as episode, index}
         <span
-          class="grid-item"
+          class={`grid-item`}
+          style={`${
+            episode.selected ? "background-color: #1a95e0; color: #f7f8f6" : ""
+          }`}
           on:click={() => {
-            grabEpisode(episode.link);
+            grabEpisode(episode.link, index);
           }}>EP {episode.episode}</span
         >
       {/each}
