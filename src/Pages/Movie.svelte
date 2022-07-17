@@ -10,7 +10,6 @@
   // import videojs
   import videojs from "video.js";
   import "xhook/dist/xhook";
-import axios from "axios";
   let link = "";
   let vjs = null;
   let videoPlayer = null;
@@ -24,20 +23,16 @@ import axios from "axios";
 
   onMount(() => {
     (async () => {
-      const response = await crawlerAPI.fetchFlick().then((r) => r);
-      link = response.sources[0].file;
+    //   const response = await crawlerAPI.fetchFlick().then((r) => {
+    //       console.log(r);
+    //       return r
+    //   });
       if (videoPlayer) {
         vjs = videojs(videoPlayer, options, () => {
           console.log("Player ready!");
         });
-        await axios.get(link).then((r) => {
-          // get the 3rd line
-            const thirdLine = r.data.split("\n")[2];
-            console.log("thirdLine", thirdLine);
-            link = thirdLine;
-        });
         vjs.src({
-          src: link,
+          src: "http://localhost:5555/api/v2/load-flick/movie/free-doctor-strange-in-the-multiverse-of-madness-hd-66671",
           type: "application/x-mpegURL",
         });
       }
