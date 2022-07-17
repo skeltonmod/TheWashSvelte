@@ -816,3 +816,8 @@ wordwrap@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/wordwrap/-/wordwrap-1.0.0.tgz#27584810891456a4171c8d0226441ade90cbcaeb"
   integrity sha512-gvVzJFlPycKc5dZN4yPkP8w7Dc37BtP1yczEneOb4uq34pXZcvrtRTmWV8W+Ume+XCxKgbjM+nevkyFPMybd4Q==
+
+xhook@^1.5.1:
+  version "1.5.1"
+  resolved "https://registry.yarnpkg.com/xhook/-/xhook-1.5.1.tgz#6b4403a9eee4cba05b23bc8e3e9deba3f19ea5b9"
+  integrity sha512-/EeiFaXQsFaUnbCE+K29a81RLKvv+Kn/BYzC44tU/3EL7r970jmhR45ntQQ8IaJW5+KWqYJGEXQpxFlTOC3OqQ==

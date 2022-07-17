@@ -28,6 +28,7 @@
     "openplayerjs": "^2.11.0",
     "sirv": "^2.0.2",
     "svelte-spa-router": "^3.2.0",
-    "terminal.css": "^0.7.2"
+    "terminal.css": "^0.7.2",
+    "xhook": "^1.5.1"
   }
 }

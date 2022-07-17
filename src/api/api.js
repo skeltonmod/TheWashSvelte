@@ -20,6 +20,18 @@ const crawlerAPI = {
         });
     },
 
+    fetchFlick: async() => {
+        return await APIRequest({
+            url: `api/v2/load-flick`,
+            data: {
+                link: '/movie/free-doctor-strange-in-the-multiverse-of-madness-hd-66671'
+            },
+            method: "POST",
+        }).then((r) => {
+            return r.data;
+        });
+    },
+
     fetchEpisodeEmbedded: async(link) => {
         return await APIRequest({
             url: `api/v2/load-anime/${link}`,
