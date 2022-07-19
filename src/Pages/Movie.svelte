@@ -22,7 +22,6 @@
     id="iframe-embed"
     scrolling="no"
     src={movieSource}
-    sandbox="allow-scripts"
     allowfullscreen="allowfullscreen"
     webkitallowfullscreen="true"
     mozallowfullscreen="true"
