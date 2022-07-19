@@ -13,7 +13,7 @@ const routes = {
     '/search': Search,
 
     '/anime/:query': Anime,
-    '/movie/test': Movie,
+    '/movie/:query': Movie,
 
     '*': Home,
 }
