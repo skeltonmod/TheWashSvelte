@@ -1,9 +1,7 @@
 <!-- svelte-ignore a11y-media-has-caption -->
 <script>
   import { onMount } from "svelte";
-  import { location } from "svelte-spa-router";
   import crawlerAPI from "../api/api";
-  import paginate from "../utils/Paginate";
   let movieSource = "";
 
   onMount(() => {
@@ -16,8 +14,6 @@
     })();
   });
 
-  const removeAds = (e) => {
-  };
 </script>
 
 <div class="inner">
@@ -26,7 +22,6 @@
     id="iframe-embed"
     scrolling="no"
     src={movieSource}
-    on:load={removeAds}
     sandbox="allow-pointer-lock allow-same-origin allow-scripts allow-top-navigation"
     allowfullscreen="allowfullscreen"
     webkitallowfullscreen="true"
@@ -38,22 +33,3 @@
 
   <center />
 </div>
-
-<style>
-  .grid-container {
-    display: grid;
-    grid-template-columns: auto auto auto;
-  }
-
-  .grid-item {
-    background-color: rgba(255, 255, 255, 0.8);
-    border: 1px solid rgba(0, 0, 0, 0.8);
-    margin: 1em;
-    text-align: center;
-  }
-
-  .responsive-iframe {
-    width: 100%;
-    height: 20em;
-  }
-</style>
