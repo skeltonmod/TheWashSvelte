@@ -22,7 +22,7 @@
     id="iframe-embed"
     scrolling="no"
     src={movieSource}
-    sandbox="allow-pointer-lock allow-same-origin allow-scripts allow-top-navigation"
+    sandbox="allow-pointer-lock"
     allowfullscreen="allowfullscreen"
     webkitallowfullscreen="true"
     mozallowfullscreen="true"
