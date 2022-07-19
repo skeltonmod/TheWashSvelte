@@ -8,20 +8,26 @@
 
   onMount(() => {
     (async () => {
-      await crawlerAPI.fetchFlick(`/movie/${String(document.location.hash).split("/")[2]}`).then(r => {
-        movieSource = r.link;
-      })
+      await crawlerAPI
+        .fetchFlick(`/movie/${String(document.location.hash).split("/")[2]}`)
+        .then((r) => {
+          movieSource = r.link;
+        });
     })();
   });
+
+  const removeAds = (e) => {
+  };
 </script>
 
 <div class="inner">
-  
   <!-- svelte-ignore a11y-missing-attribute -->
   <iframe
     id="iframe-embed"
     scrolling="no"
     src={movieSource}
+    on:load={removeAds}
+    sandbox="allow-pointer-lock allow-same-origin allow-scripts allow-top-navigation"
     allowfullscreen="allowfullscreen"
     webkitallowfullscreen="true"
     mozallowfullscreen="true"
