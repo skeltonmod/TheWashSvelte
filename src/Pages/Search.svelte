@@ -22,7 +22,7 @@
             return {
               title: item.title,
               // Only grab the /movie/ part of the url
-              link: `/#/movie/${item.link}`,
+              link: `/#${item.link}`,
             };
           });
         });

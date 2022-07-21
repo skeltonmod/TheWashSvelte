@@ -97,8 +97,7 @@
     height="300"
     class="vjs-default-skin"
     controls
-  >
-</video-js>
+  />
 
   <center>
     <div
