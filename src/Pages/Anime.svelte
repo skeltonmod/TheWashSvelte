@@ -24,6 +24,10 @@
   let vjs = null;
 
   onMount(async () => {
+    vjs = videojs(videoPlayer, options, () => {
+        console.log("Player ready!");
+        episodes[0].selected = true;
+      });
     await crawlerAPI
       .fetchEpisodeEmbedded(String($location).split("/")[2])
       .then((r) => {
@@ -49,10 +53,6 @@
 
     // Init videojs
     if (videoPlayer) {
-      vjs = videojs(videoPlayer, options, () => {
-        console.log("Player ready!");
-        episodes[0].selected = true;
-      });
       vjs.src({
         src: firstEpisode.file,
         type:
