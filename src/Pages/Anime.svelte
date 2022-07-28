@@ -26,7 +26,6 @@
   onMount(async () => {
     vjs = videojs(videoPlayer, options, () => {
         console.log("Player ready!");
-        episodes[0].selected = true;
       });
     await crawlerAPI
       .fetchEpisodeEmbedded(String($location).split("/")[2])
@@ -48,6 +47,7 @@
       .loadEmbedded({ link: episodes[0].link })
       .then((response) => {
         // Change iframe src
+        episodes[0].selected = true;
         return response;
       });
 
