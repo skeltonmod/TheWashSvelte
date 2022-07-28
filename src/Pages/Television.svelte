@@ -5,6 +5,7 @@
   import crawlerAPI from "../api/api";
   import paginate from "../utils/Paginate";
   import wendale from "../assets/wendale.jpg";
+  let seasons = [];
   let episodes = [];
   let pages = [];
   let currentPage = 0;
@@ -17,76 +18,72 @@
   const options = {
     autoplay: true,
     controls: true,
-    type: "application/x-mpegURL",
+    type: "video/mp4",
     fluid: true,
     poster: wendale,
   };
   let vjs = null;
 
   onMount(async () => {
-    vjs = videojs(videoPlayer, options, () => {
-        console.log("Player ready!");
-        episodes[0].selected = true;
-      });
-    await crawlerAPI
-      .fetchEpisodeEmbedded(String($location).split("/")[2])
+    const links = await crawlerAPI
+      .fetchEpisodes(String($location).split("/")[2])
       .then((r) => {
-        episodes = r.map((item, index) => {
-          return {
-            id: index,
-            episode: item.episode,
-            link: item.link,
-            selected: false,
-          };
-        });
-        pages = paginate(episodes, 20);
-
-        episodes = pages[currentPage];
+        return r;
       });
-    console.log("Episode 0", episodes[0]);
+    seasons = links;
+
+    episodes = seasons[0].episodes.map((item) => {
+      return {
+        id: item.id,
+        name: item.name,
+        video_id: item.videos,
+        selected: false,
+      };
+    });
+
+    vjs = videojs(videoPlayer, options, () => {
+      console.log("Player ready!");
+      episodes[0].selected = true;
+    });
+
     const firstEpisode = await crawlerAPI
-      .loadEmbedded({ link: episodes[0].link })
+      .loadEpisode({ id: episodes[0].video_id })
       .then((response) => {
         // Change iframe src
         return response;
       });
-
-    // Init videojs
     if (videoPlayer) {
       vjs.src({
-        src: firstEpisode.file,
-        type:
-          String(firstEpisode.file).split(".").pop() === "mp4"
-            ? "video/mp4"
-            : "application/x-mpegURL",
+        src: firstEpisode.url,
+        type: "video/mp4",
       });
     }
   });
 
-  const grabEpisode = async (link, index) => {
+  const grabEpisode = async (video_id, index) => {
     // change the selected property
     episodes[index].selected = true;
 
     console.log(episodes);
-    await crawlerAPI.loadEmbedded({ link: link }).then((response) => {
-      // Change iframe src
+    await crawlerAPI.loadEpisode({ id: video_id }).then((response) => {
       console.log(response);
-      // Check the end of the string if it has an mp4 extension
-
       vjs.src({
-        src: response.file,
-        type:
-          String(response.file).split(".").pop() === "mp4"
-            ? "video/mp4"
-            : "application/x-mpegURL",
+        src: response.url,
+        type: "video/mp4",
       });
     });
   };
 
-  // Create a handler for page change
   const handlePageChange = (page) => {
-    currentPage = page;
-    episodes = pages[page];
+    // currentPage = page;
+    episodes = seasons[page].episodes.map((item) => {
+      return {
+        id: item.id,
+        name: item.name,
+        video_id: item.videos,
+        selected: false,
+      };
+    });
   };
 </script>
 
@@ -98,7 +95,6 @@
     class="vjs-default-skin"
     controls
   />
-
   <center>
     <div
       id="list"
@@ -109,17 +105,19 @@
         <span
           class={`grid-item`}
           style={`${
-            episode.selected ? "background-color: #1a95e0; color: #f7f8f6" : ""
-          }`}
+            episode.selected ? "background-color: #1a95e0; color: #f7f8f6;" : ""
+          } height: 25px; white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;`}
           on:click={() => {
-            grabEpisode(episode.link, index);
-          }}>EP {episode.episode}</span
+            grabEpisode(episode.video_id, index);
+          }}>EP {index + 1}: {episode.name}</span
         >
       {/each}
     </div>
     <!-- Paginate and display them in one line only -->
     <div class="pagination" style="justify-content: left">
-      {#each pages as page, index}
+      {#each seasons as page, index}
         <!-- svelte-ignore a11y-missing-attribute -->
         <a
           class="page-item"
@@ -128,7 +126,7 @@
             handlePageChange(index);
           }}
         >
-          {index + 1}
+          {page.name}
         </a>
       {/each}
     </div>

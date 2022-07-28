@@ -27,6 +27,17 @@
           });
         });
         break;
+      case "tv":
+        crawlerAPI.SearchSeries({ search: searchQuery }).then((res) => {
+          medias = res.map((item) => {
+            return {
+              title: item.title,
+              // Only grab the /movie/ part of the url
+              link: `/#${item.link}`,
+            };
+          });
+        });
+        break;
     }
   };
 </script>
@@ -43,7 +54,7 @@
         placeholder="Search"
         style="width: 50%;"
       />
-      
+
       <button
         on:click={() => {
           search(type);
@@ -52,13 +63,18 @@
       >
         Search
       </button>
-      
     </div>
     <div class="form-group">
       <label for="select">Select Media Type:</label>
-      <select id="select" name="select" bind:value={type} style="padding: 0.8em; background-color: black; color: white; font-family: inherit">
+      <select
+        id="select"
+        name="select"
+        bind:value={type}
+        style="padding: 0.8em; background-color: black; color: white; font-family: inherit"
+      >
         <option value="anime"> Anime </option>
         <option value="movie"> Movie </option>
+        <option value="tv"> TV Series </option>
       </select>
     </div>
   </div>

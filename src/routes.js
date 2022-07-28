@@ -5,6 +5,7 @@ import Anime from './Pages/Anime.svelte';
 import Home from './Pages/Home.svelte';
 import Search from './Pages/Search.svelte';
 import Movie from './Pages/Movie.svelte';
+import Television from './Pages/Television.svelte';
 
 const routes = {
     '/': Home,
@@ -14,6 +15,7 @@ const routes = {
 
     '/anime/:query': Anime,
     '/movie/:query': Movie,
+    '/tv-show/:query': Television,
 
     '*': Home,
 }

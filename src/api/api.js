@@ -39,6 +39,35 @@ const crawlerAPI = {
         });
     },
 
+    SearchSeries: async(data) => {
+        return await APIRequest({
+            url: `api/v2/search-series`,
+            data,
+            method: "POST",
+        }).then((r) => {
+            return r.data;
+        });
+    },
+
+    fetchEpisodes: async(link) => {
+        return await APIRequest({
+            url: `api/v2/load-series/tv-show/${link}`,
+            method: "GET",
+        }).then((r) => {
+            return r.data;
+        });
+    },
+
+    loadEpisode: async(data) => {
+        return await APIRequest({
+            url: `api/v2/load-episode`,
+            data,
+            method: "POST",
+        }).then((r) => {
+            return r.data;
+        });
+    },
+
     fetchEpisodeEmbedded: async(link) => {
         return await APIRequest({
             url: `api/v2/load-anime/${link}`,
