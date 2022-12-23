@@ -64,7 +64,7 @@
         Search
       </button>
     </div>
-    <div class="form-group">
+    <!-- <div class="form-group">
       <label for="select">Select Media Type:</label>
       <select
         id="select"
@@ -76,7 +76,7 @@
         <option value="movie"> Movie </option>
         <option value="tv"> TV Series </option>
       </select>
-    </div>
+    </div> -->
   </div>
   <ul>
     {#each medias as media}
