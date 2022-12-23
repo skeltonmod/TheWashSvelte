@@ -7,10 +7,10 @@
     "node": "14.x"
   },
   "scripts": {
+    "start": "npx http-server ./dist",
     "dev": "vite",
     "build": "vite build",
-    "preview": "vite preview",
-    "start": "vite build && sirv dist --single --port 8080"
+    "preview": "vite preview"
   },
   "devDependencies": {
     "@sveltejs/vite-plugin-svelte": "^1.0.0-next.30",
