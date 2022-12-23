@@ -1,6 +1,6 @@
 // import "regenerator-runtime/runtime";
 import axios from "axios";
-let cors_api_url = 'http://localhost:5555/';
+let cors_api_url = 'https://thewashapi-production.up.railway.app/';
 
 async function APIRequest(options, timeout = 0) {
   let request = null;
