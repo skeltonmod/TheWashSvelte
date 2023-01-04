@@ -7,7 +7,7 @@
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
-    "start": "npx pm2 serve --spa"
+    "start": "npx pm2 serve build 80 --spa"
   },
   "dependencies": {
     "@oplayer/core": "^1.2.9",
