@@ -7,7 +7,7 @@
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
-    "start": "npx pm2 serve build 80 --spa"
+    "start": "vite build && npx serve -s dist"
   },
   "dependencies": {
     "@oplayer/core": "^1.2.9",
@@ -18,9 +18,9 @@
     "hls.js": "^1.2.9",
     "localforage": "^1.10.0",
     "match-sorter": "^6.3.1",
-    "pm2": "^5.2.2",
     "preact": "^10.11.3",
     "react-router-dom": "^6.6.1",
+    "serve": "^14.1.2",
     "sort-by": "^1.2.0",
     "terminal.css": "^0.7.2"
   },
