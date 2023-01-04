@@ -1,14 +1,14 @@
-<script>
-  import Router from "svelte-spa-router";
-  import "terminal.css";
-  import routes from "./routes";
-</script>
+import { useState } from 'preact/hooks'
+import Router from './routes';
+import 'terminal.css';
 
-<body id="content" class="terminal">
+export function App() {
+  return (
+    <body id="content" class="terminal">
   <div class="container components components-grid" style="margin-top: 1em;">
     <fieldset>
       <legend>The Wash</legend>
-      <Router {routes} />
+      <Router />
       
     </fieldset>
     <section>
@@ -19,3 +19,6 @@
     </section>
   </div>
 </body>
+
+  )
+}
