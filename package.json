@@ -7,7 +7,7 @@
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
-    "start": "npx pm2 serve build 5000 --spa --watch --restart-delay=3000"
+    "start": "npx pm2 serve --spa"
   },
   "dependencies": {
     "@oplayer/core": "^1.2.9",
