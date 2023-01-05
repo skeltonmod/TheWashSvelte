@@ -57,7 +57,7 @@ export default function Anime() {
         );
         (async () => {
           await routes.playAnimeEpisode(r[0].id).then((res) => {
-            _ref.current.changeSource({ src: res[1].url, poster: Wendale });
+            _ref.current.changeSource({ src: res[0].url, poster: Wendale });
             setCurrentEpisode(r[0].id);
           });
         })();
@@ -67,7 +67,7 @@ export default function Anime() {
   const playEpisode = async (id, index) => {
     setCurrentEpisode(id);
     await routes.playAnimeEpisode(id).then((r) => {
-      _ref.current.changeSource({ src: r[1].url, poster: Wendale });
+      _ref.current.changeSource({ src: r[0].url, poster: Wendale });
       
     });
   };

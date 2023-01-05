@@ -31,7 +31,7 @@ export default function Search() {
         <div class="form-group">
           <input
             type="text"
-            onChange={(e) => {
+            onInput={(e) => {
               setQuery(e.target.value);
             }}
             placeholder="Search"
