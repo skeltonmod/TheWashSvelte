@@ -35,6 +35,7 @@ export default function Search() {
               setQuery(e.target.value);
             }}
             placeholder="Search"
+            value={query}
             style="width: 50%;"
           />
 
