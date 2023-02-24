@@ -1,7 +1,7 @@
 import "regenerator-runtime/runtime";
 import axios from "axios";
 // It just appends the API request
-let cors_api_url = "http://localhost:5555/api";
+let cors_api_url = "https://thewashapi-production.up.railway.app/api";
 export class Api {
   static instance;
 
