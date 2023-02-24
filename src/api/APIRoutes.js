@@ -39,6 +39,14 @@ const routes = {
     return await APIRequest.get(`/v2/load-anime/${id}`).then((r) => r.data);
   },
 
+  fetchTVEpisodes: async (id) => {
+    return await APIRequest.get(`/v2/load-series/tv/${id}`).then((r) => r.data);
+  },
+
+  playTVEpisode: async (id) => {
+    return await APIRequest.get(`/v2/load-episode/${id}`).then((r) => r.data);
+  },
+
   playAnimeEpisode: async (id) => {
     return await APIRequest.get(`/v2/play-anime/${id}`).then((r) => r.data);
   },
