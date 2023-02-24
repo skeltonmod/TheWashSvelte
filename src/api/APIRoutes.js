@@ -42,6 +42,10 @@ const routes = {
   playAnimeEpisode: async (id) => {
     return await APIRequest.get(`/v2/play-anime/${id}`).then((r) => r.data);
   },
+
+  playMovie: async (id) => {
+    return await APIRequest.post(`/v2/load-flick/movie/${id}`).then((r) => r.data);
+  }
 };
 
 export default routes;

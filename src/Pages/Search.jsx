@@ -18,6 +18,11 @@ export default function Search() {
         break;
     }
   };
+
+  useEffect(() => {
+    console.log(type);
+  }, [type])
+
   useEffect(() => {
     console.log(result);
   }, [result]);
@@ -38,6 +43,17 @@ export default function Search() {
             value={query}
             style="width: 50%;"
           />
+
+          <div class="form-group">
+            <label for="select">Select field:</label>
+            <select onChange={(e) => {
+              setType(e.target.value);
+            }} id="select" name="select">
+              <option value={"anime"}> Anime </option>
+              <option value={"tv"}> TV Series</option>
+              <option value={"movie"}> Movie </option>
+            </select>
+          </div>
 
           <button class="btn btn-default" onClick={handleSearch}>
             Search
