@@ -25,11 +25,30 @@ export default function Series() {
     hls(),
   ];
 
+  useEffect(() => {
+    if (currentEpisode.length > 0) {
+      const new_data = pages?.map((page, index) => {
+        return page.map((item) => {
+          if (item.id == currentEpisode) {
+            return {
+              ...item,
+              selected: true,
+            };
+          }
+
+          return item;
+        });
+      });
+
+      setPages(new_data)
+    }
+  }, [currentEpisode]);
+
   const playEpisode = async (id, index) => {
     setCurrentEpisode(id);
-    await routes.playAnimeEpisode(id).then((res) => {
+    await routes.playTVEpisode(id).then((res) => {
       _ref.current.changeSource({ src: res?.sources[0]?.url, poster: Wendale });
-      
+      setCurrentEpisode(id);
     });
   };
 
@@ -41,7 +60,7 @@ export default function Series() {
         (async () => {
           await routes.playTVEpisode(r[0][0].id).then((res) => {
             _ref.current.changeSource({ src: res?.sources[0]?.url, poster: Wendale });
-            setCurrentEpisode(r[0].id);
+            setCurrentEpisode(r[0][0].id);
           });
         })();
       });
