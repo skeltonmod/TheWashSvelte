@@ -13,16 +13,33 @@ export default function Anime() {
   const [pages, setPages] = useState([]);
   const [currentEpisode, setCurrentEpisode] = useState("");
   const [currentPage, setCurrentPage] = useState(0);
-  const _ref = useRef(null);
+  const [subtitles, setSubtitles] = useState([]);
   const plugins = [
     ui({
       pictureInPicture: true,
       slideToSeek: "always",
+      subtitle: { fontSize: 30 },
+      subtitle: {
+        source: [
+          {
+            name: 'Default',
+            default: true,
+            src: 'https://oplayer.vercel.app/君の名は.srt'
+          }
+        ]
+      },
       screenshot: true,
       keyboard: { global: true },
     }),
     hls(),
   ];
+  const _ref = useRef(null);
+  
+  useEffect(() => {
+    if (subtitles.length > 0){
+      _ref.current.plugins.ui.subtitle.updateSource(subtitles);
+    }
+  }, [subtitles])
 
   useEffect(() => {
     if (currentEpisode.length > 0) {
@@ -57,7 +74,10 @@ export default function Anime() {
         );
         (async () => {
           await routes.playAnimeEpisode(r[0].id).then((res) => {
-            _ref.current.changeSource({ src: res[0].url, poster: Wendale });
+            _ref.current.changeSource({ src: res[0].url, poster: Wendale});
+            if(res[0].subtitles){
+              setSubtitles(res[0].subtitles);
+            }
             setCurrentEpisode(r[0].id);
           });
         })();
@@ -68,7 +88,9 @@ export default function Anime() {
     setCurrentEpisode(id);
     await routes.playAnimeEpisode(id).then((r) => {
       _ref.current.changeSource({ src: r[0].url, poster: Wendale });
-      
+      if(res[0].subtitles){
+        setSubtitles(res[0].subtitles);
+      }
     });
   };
   return (
