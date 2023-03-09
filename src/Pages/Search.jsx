@@ -33,10 +33,6 @@ export default function Search() {
         <center>
           <h4>Fucking Media Sideloader Bullshit</h4>
         </center>
-        {/* <center>
-          <h4 style="color:red;">Anime provider is currently down (service is unreachable) check back later or watch other media!</h4>
-        </center> */}
-        {/*  */}
         <div class="form-group">
           <input
             type="text"
