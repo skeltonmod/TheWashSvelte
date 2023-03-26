@@ -88,8 +88,8 @@ export default function Anime() {
     setCurrentEpisode(id);
     await routes.playAnimeEpisode(id).then((r) => {
       _ref.current.changeSource({ src: r[0].url, poster: Wendale });
-      if(res[0].subtitles){
-        setSubtitles(res[0].subtitles);
+      if(r[0].subtitles){
+        setSubtitles(r[0].subtitles);
       }
     });
   };
