@@ -33,7 +33,7 @@ export default function Search() {
       <div style="padding-top: 0.5em; padding-left: 1em;" class="center">
         <center>
           <h4>Fucking Media Sideloader Bullshit</h4>
-          <h3 style="color:red">Movies and TV Shows are currently down due to cloudflare being gay. Sorry for the inconvenience Homies!</h3>
+          {/* <h3 style="color:red">Movies and TV Shows are currently down due to cloudflare being gay. Sorry for the inconvenience Homies!</h3> */}
         </center>
         <div class="form-group">
           <input
@@ -52,8 +52,8 @@ export default function Search() {
               setType(e.target.value);
             }} id="select" name="select">
               <option value={"anime"}> Anime </option>
-              {/* <option value={"tv"}> TV Series</option>
-              <option value={"movie"}> Movie </option> */}
+              <option value={"tv"}> TV Series</option>
+              <option value={"movie"}> Movie </option>
             </select>
           </div>
 
